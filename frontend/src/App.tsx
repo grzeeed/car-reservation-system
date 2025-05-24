@@ -5,6 +5,7 @@ import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import Login from '@/pages/auth/Login'
 import Register from '@/pages/auth/Register'
 import CompleteProfile from '@/pages/auth/CompleteProfile'
+import Profile from '@/pages/Profile'
 import Dashboard from '@/pages/Dashboard'
 import CarList from '@/pages/cars/CarList'
 import CarDetails from '@/pages/cars/CarDetails'
@@ -26,6 +27,13 @@ function App() {
           <Route path="/complete-profile" element={
             <ProtectedRoute allowIncompleteProfile>
               <CompleteProfile />
+            </ProtectedRoute>
+          } />
+          
+          {/* Profile route - redirect to complete profile if needed */}
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           } />
           

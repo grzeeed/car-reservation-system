@@ -154,6 +154,7 @@ export default function Login() {
             <div><strong>Admin:</strong> admin@carreserve.com / admin123</div>
             <div><strong>Manager:</strong> manager@carreserve.com / manager123</div>
             <div><strong>Employee:</strong> employee@carreserve.com / employee123</div>
+            <div><strong>Test User (Incomplete Profile):</strong> test@carreserve.com / test123</div>
           </div>
         </div>
       </div>

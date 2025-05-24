@@ -146,6 +146,17 @@ const MOCK_USERS: Array<User & { password: string }> = [
     joinDate: '2023-06-20',
     isProfileComplete: true,
   },
+  // Test user with incomplete profile
+  {
+    id: '4',
+    email: 'test@carreserve.com',
+    password: 'test123',
+    firstName: '',
+    lastName: '',
+    role: 'Employee',
+    joinDate: new Date().toISOString().split('T')[0],
+    isProfileComplete: false,
+  },
 ]
 
 // Simulate user storage
