@@ -1,0 +1,67 @@
+﻿version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: car-reservation-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Password123
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - car-reservation-network
+    healthcheck:
+      test: ["CMD", "bash", "-c", "</dev/tcp/localhost/1433"]      
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: car-reservation-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=CarReservationDb;User Id=sa;Password=YourStrong@Password123;TrustServerCertificate=True
+    ports:
+      - "5170:80"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - car-reservation-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: car-reservation-frontend
+    environment:
+      - NODE_ENV=development
+      - DOCKER=true
+    ports:
+      - "3000:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    networks:
+      - car-reservation-network
+    restart: unless-stopped
+
+networks:
+  car-reservation-network:
+    driver: bridge
+
+volumes:
+  sqlserver-data:
