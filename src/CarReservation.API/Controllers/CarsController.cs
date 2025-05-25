@@ -122,6 +122,17 @@ public class CarsController : ControllerBase
             ? Ok(new { Message = "Car set to out of service successfully" })
             : BadRequest(result.Error);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCar(Guid id)
+    {
+        var command = new DeleteCarCommand(id);
+        var result = await _mediator.Send(command);
+
+        return result.IsSuccess 
+            ? NoContent()
+            : BadRequest(result.Error);
+    }
 }
 
 public record UpdateCarLocationRequest(

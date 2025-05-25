@@ -9,6 +9,7 @@ public class CarReservationDbContext : DbContext
 {
     public DbSet<Car> Cars { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public CarReservationDbContext(DbContextOptions<CarReservationDbContext> options)
         : base(options)

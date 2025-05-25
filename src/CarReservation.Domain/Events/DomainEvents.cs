@@ -1,6 +1,7 @@
-﻿namespace CarReservation.Domain.Events;
+namespace CarReservation.Domain.Events;
 
 using CarReservation.Domain.Common;
+using CarReservation.Domain.Enums;
 using CarReservation.Domain.ValueObjects;
 
 public record CarCreatedDomainEvent(
@@ -28,4 +29,24 @@ public record ReservationCancelledDomainEvent(
     CarId CarId,
     CustomerId CustomerId,
     string Reason
+) : IDomainEvent;
+
+public record UserRegisteredDomainEvent(
+    UserId UserId,
+    string Email,
+    UserRole Role
+) : IDomainEvent;
+
+public record UserProfileUpdatedDomainEvent(
+    UserId UserId,
+    UserProfile Profile
+) : IDomainEvent;
+
+public record UserLoggedInDomainEvent(
+    UserId UserId,
+    DateTime LoginTime
+) : IDomainEvent;
+
+public record UserPasswordChangedDomainEvent(
+    UserId UserId
 ) : IDomainEvent;
