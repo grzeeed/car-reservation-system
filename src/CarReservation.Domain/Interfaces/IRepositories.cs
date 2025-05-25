@@ -27,7 +27,7 @@ public interface IUserRepository
     Task<List<User>> GetAllAsync(CancellationToken cancellationToken = default);
     Task AddAsync(User user, CancellationToken cancellationToken = default);
     Task UpdateAsync(User user, CancellationToken cancellationToken = default);
-    Task<bool> ExistsWithEmailAsync(string email, CancellationToken cancellationToken = default);
+    Task<bool> ExistsAsync(string email, CancellationToken cancellationToken = default);
 }
 
 public interface IUnitOfWork

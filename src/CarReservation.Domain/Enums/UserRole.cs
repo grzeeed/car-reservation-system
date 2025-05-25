@@ -2,7 +2,6 @@ namespace CarReservation.Domain.Enums;
 
 public enum UserRole
 {
-    Employee = 1,
-    Manager = 2,
-    Admin = 3
+    Admin = 1,
+    External = 2
 }

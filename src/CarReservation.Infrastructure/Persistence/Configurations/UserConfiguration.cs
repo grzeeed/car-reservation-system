@@ -51,29 +51,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnName("LastName")
                 .HasMaxLength(50);
                 
-            profile.Property(p => p.PhoneNumber)
-                .HasColumnName("PhoneNumber")
+            profile.Property(p => p.Phone)
+                .HasColumnName("Phone")
                 .HasMaxLength(20);
-
-            // Configure Address as owned entity within Profile
-            profile.OwnsOne(p => p.Address, address =>
-            {
-                address.Property(a => a.Street)
-                    .HasColumnName("AddressStreet")
-                    .HasMaxLength(200);
-                    
-                address.Property(a => a.City)
-                    .HasColumnName("AddressCity")
-                    .HasMaxLength(100);
-                    
-                address.Property(a => a.PostalCode)
-                    .HasColumnName("AddressPostalCode")
-                    .HasMaxLength(20);
-                    
-                address.Property(a => a.Country)
-                    .HasColumnName("AddressCountry")
-                    .HasMaxLength(100);
-            });
         });
 
         // Indexes
