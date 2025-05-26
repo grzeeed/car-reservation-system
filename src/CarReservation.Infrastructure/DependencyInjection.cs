@@ -1,4 +1,4 @@
-﻿namespace CarReservation.Infrastructure;
+namespace CarReservation.Infrastructure;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,8 +21,13 @@ public static class DependencyInjection
 
         services.AddScoped<ICarRepository, CarRepository>();
         services.AddScoped<IReservationRepository, ReservationRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICarReadRepository, CarReadRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        // Security services
+        services.AddScoped<IPasswordHasher, Security.PasswordHasher>();
+        services.AddScoped<IJwtTokenGenerator, Security.JwtTokenGenerator>();
 
         return services;
     }
