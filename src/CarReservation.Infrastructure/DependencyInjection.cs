@@ -25,7 +25,9 @@ public static class DependencyInjection
         services.AddScoped<ICarReadRepository, CarReadRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        // Authentication services
+        // Security services
+        services.AddScoped<IPasswordHasher, Security.PasswordHasher>();
+        services.AddScoped<IJwtTokenGenerator, Security.JwtTokenGenerator>();
 
         return services;
     }

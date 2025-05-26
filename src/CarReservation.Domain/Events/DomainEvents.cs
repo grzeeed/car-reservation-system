@@ -42,11 +42,11 @@ public record UserProfileUpdatedDomainEvent(
     UserProfile Profile
 ) : IDomainEvent;
 
+public record UserPasswordChangedDomainEvent(
+    UserId UserId
+) : IDomainEvent;
+
 public record UserLoggedInDomainEvent(
     UserId UserId,
     DateTime LoginTime
-) : IDomainEvent;
-
-public record UserPasswordChangedDomainEvent(
-    UserId UserId
 ) : IDomainEvent;

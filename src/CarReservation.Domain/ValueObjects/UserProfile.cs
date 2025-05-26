@@ -7,13 +7,15 @@ public class UserProfile : ValueObject
     public string FirstName { get; }
     public string LastName { get; }
     public string? Phone { get; }
+    public Address? Address { get; }
     public bool IsProfileComplete { get; }
 
-    public UserProfile(string firstName, string lastName, string? phone = null)
+    public UserProfile(string firstName, string lastName, string? phone = null, Address? address = null)
     {
         FirstName = firstName?.Trim() ?? throw new ArgumentNullException(nameof(firstName));
         LastName = lastName?.Trim() ?? throw new ArgumentNullException(nameof(lastName));
         Phone = phone?.Trim();
+        Address = address;
 
         ValidateNames();
         
@@ -25,12 +27,27 @@ public class UserProfile : ValueObject
 
     public UserProfile UpdatePhone(string? phone)
     {
-        return new UserProfile(FirstName, LastName, phone?.Trim());
+        return new UserProfile(FirstName, LastName, phone?.Trim(), Address);
     }
 
     public UserProfile UpdateNames(string firstName, string lastName)
     {
-        return new UserProfile(firstName, lastName, Phone);
+        return new UserProfile(firstName, lastName, Phone, Address);
+    }
+
+    public UserProfile UpdateAddress(Address? address)
+    {
+        return new UserProfile(FirstName, LastName, Phone, address);
+    }
+
+    public UserProfile UpdateDepartment(string? department)
+    {
+        return new UserProfile(FirstName, LastName, Phone, Address);
+    }
+
+    public UserProfile UpdateAll(string firstName, string lastName, string? phone, Address? address)
+    {
+        return new UserProfile(firstName, lastName, phone, address);
     }
 
     private void ValidateNames()
@@ -53,6 +70,7 @@ public class UserProfile : ValueObject
         yield return FirstName;
         yield return LastName;
         yield return Phone ?? string.Empty;
+        yield return Address?.ToString() ?? string.Empty;
     }
 
     public override string ToString() => FullName;

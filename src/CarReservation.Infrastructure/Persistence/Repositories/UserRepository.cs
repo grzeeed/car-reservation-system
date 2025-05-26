@@ -23,14 +23,13 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
         return await _context.Users
-            .FirstOrDefaultAsync(u => u.Email == email.ToLowerInvariant(), cancellationToken);
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower(), cancellationToken);
     }
 
-    public async Task<List<User>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<bool> EmailExistsAsync(string email, CancellationToken cancellationToken = default)
     {
         return await _context.Users
-            .OrderBy(u => u.Email)
-            .ToListAsync(cancellationToken);
+            .AnyAsync(u => u.Email.ToLower() == email.ToLower(), cancellationToken);
     }
 
     public async Task AddAsync(User user, CancellationToken cancellationToken = default)
@@ -42,17 +41,5 @@ public class UserRepository : IUserRepository
     {
         _context.Users.Update(user);
         return Task.CompletedTask;
-    }
-
-    public Task DeleteAsync(User user, CancellationToken cancellationToken = default)
-    {
-        _context.Users.Remove(user);
-        return Task.CompletedTask;
-    }
-
-    public async Task<bool> ExistsAsync(string email, CancellationToken cancellationToken = default)
-    {
-        return await _context.Users
-            .AnyAsync(u => u.Email == email.ToLowerInvariant(), cancellationToken);
     }
 }
